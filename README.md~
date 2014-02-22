@@ -7,6 +7,6 @@ Currently, only finish:
 
 * Unit1: Monte-Carlo Localization
 * Unit2: Tracking other cars with Kalman filter
-* Unit3: Particle filter
+* Unit3: Particle filter (working)
 * Unit4: Motion planning (working)
 
