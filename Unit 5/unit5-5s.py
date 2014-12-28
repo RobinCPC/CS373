@@ -68,7 +68,19 @@ newpath = smooth(path)
 for i in range(len(path)):
     print '['+ ', '.join('%.3f'%x for x in path[i]) +'] -> ['+ ', '.join('%.3f'%x for x in newpath[i]) +']'
 
+# add code to plot the result
+import matplotlib.pyplot as plt
 
+x = [0 for col in range(len(newpath))]
+y = [0 for col in range(len(newpath))]
+x_o = [0 for col in range(len(newpath))]
+y_o = [0 for col in range(len(newpath))]
 
+for i in range(len(newpath)):
+    x[i] = newpath[i][0]
+    x_o[i] = path[i][0]
+    y[i] = newpath[i][1]
+    y_o[i] = path[i][1] 
 
-
+plt.plot(y_o, x_o)
+plt.plot(y,x)
