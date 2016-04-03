@@ -20,7 +20,7 @@ Created on Sun Mar 02 21:31:14 2014
 
 grid = [[0, 1, 0, 0, 0, 0],
         [0, 1, 0, 0, 0, 0],
-        [0, 1, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
         [0, 1, 0, 0, 0, 0],
         [0, 1, 0, 0, 1, 0]]
 
@@ -34,13 +34,13 @@ delta = [[-1, 0 ], # go up
 
 delta_name = ['^', '<', 'v', '>']
 
-cost_step = 1 # the cost associated with moving from a cell to an adjacent one.
+cost = 1 # the cost associated with moving from a cell to an adjacent one.
 
 # ----------------------------------------
 # insert code below
 # ----------------------------------------
 
-def compute_value():
+def compute_value(grid,goal,cost):
     closed = [[0 for row in range(len(grid[0]))] for col in range(len(grid))]
     closed[goal[0]][goal[1]] = 1
     value = [[99 for row in range(len(grid[0]))] for col in range(len(grid))]
@@ -75,12 +75,12 @@ def compute_value():
                 
                 if x2 >= 0 and x2 < len(grid) and y2 >= 0 and y2 < len(grid[0]):
                     if closed[x2][y2] == 0 and grid[x2][y2] == 0:
-                        v2 = v + cost_step
+                        v2 = v + cost
                         open.append([v2, x2, y2])
                         closed[x2][y2] = 1
     for i in range(len(value)):
         print value[i]
     return value #make sure your function returns a grid of values as demonstrated in the previous video.
 
-compute_value()
+compute_value(grid,goal,cost)
 

@@ -34,13 +34,13 @@ delta = [[-1, 0 ], # go up
 
 delta_name = ['^', '<', 'v', '>']
 
-cost_step = 1 # the cost associated with moving from a cell to an adjacent one.
+cost = 1 # the cost associated with moving from a cell to an adjacent one.
 
 # ----------------------------------------
 # insert code below
 # ----------------------------------------
 
-def compute_value():
+def compute_value(grid,goal,cost):
     value = [[99 for row in range(len(grid[0]))] for col in range(len(grid))]
     change = True
 
@@ -61,7 +61,7 @@ def compute_value():
                         y2 = y + delta[a][1]
 
                         if x2 >= 0 and x2 < len(grid) and y2 >= 0 and y2 < len(grid[0]) and grid[x2][y2] == 0:
-                            v2 = value[x2][y2] + cost_step
+                            v2 = value[x2][y2] + cost
 
                             if v2 < value[x][y]:
                                 change = True
@@ -70,5 +70,5 @@ def compute_value():
         print value[i]
     return value #make sure your function returns a grid of values as demonstrated in the previous video.
 
-compute_value()
+compute_value(grid,goal,cost)
 

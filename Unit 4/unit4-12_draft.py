@@ -49,20 +49,20 @@ cost = 1
 # modify code below
 # ----------------------------------------
 
-def search():
-    closed = [[0 for row in range(len(grid[0]))] for col in range(len(grid))]
+def search(grid,init,goal,cost,heuristic):
+    closed = [[0 for col in range(len(grid[0]))] for row in range(len(grid))]
     closed[init[0]][init[1]] = 1
 
-    expand = [[-1 for row in range(len(grid[0]))] for col in range(len(grid))]
-    action = [[-1 for row in range(len(grid[0]))] for col in range(len(grid))]
+    expand = [[-1 for col in range(len(grid[0]))] for row in range(len(grid))]
+    action = [[-1 for col in range(len(grid[0]))] for row in range(len(grid))]
 
 
     x = init[0]
     y = init[1]
     g = 0
-    f = heuristic[x][y] + g
+    f = heuristic[x][y] + g   # evaluated function
 
-    open = [[f, g, x, y]]       # modify to include f = heuristic + g value
+    open = [[f, g, x, y]]       # modify to include evaluated function f = heuristic + g value
 
     found = False  # flag that is set when search is complete
     resign = False # flag set if we can't find expand
@@ -92,15 +92,12 @@ def search():
                     if x2 >= 0 and x2 < len(grid) and y2 >=0 and y2 < len(grid[0]):
                         if closed[x2][y2] == 0 and grid[x2][y2] == 0:
                             g2 = g + cost
-                            # check if h+g of grid is the smallest
+                            # update evaluate function f = h + g
                             f2 = heuristic[x2][y2] + g2
                             open.append([f2, g2, x2, y2])
                             closed[x2][y2] = 1
     for i in range(len(expand)):
         print expand[i]
-    print
-    for i in range(len(closed)):
-        print closed[i]
     return expand #Leave this line for grading purposes!
 
-search()
+search(grid,init,goal,cost,heuristic)
