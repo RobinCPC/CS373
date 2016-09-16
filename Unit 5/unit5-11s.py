@@ -21,24 +21,23 @@ Created on Mon Dec 29 03:33:45 2014
 #
 # Only modify code at the bottom!
 # ------------
- 
+
 from math import *
 import random
 
 
 # ------------------------------------------------
-# 
+#
 # this is the robot class
 #
 
 class robot:
-
     # --------
-    # init: 
+    # init:
     #    creates robot and initializes location/orientation to 0, 0, 0
     #
 
-    def __init__(self, length = 20.0):
+    def __init__(self, length=20.0):
         self.x = 0.0
         self.y = 0.0
         self.orientation = 0.0
@@ -48,7 +47,7 @@ class robot:
         self.steering_drift = 0.0
 
     # --------
-    # set: 
+    # set:
     #	sets a robot coordinate
     #
 
@@ -58,9 +57,8 @@ class robot:
         self.y = float(new_y)
         self.orientation = float(new_orientation) % (2.0 * pi)
 
-
     # --------
-    # set_noise: 
+    # set_noise:
     #	sets the noise parameters
     #
 
@@ -71,20 +69,20 @@ class robot:
         self.distance_noise = float(new_d_noise)
 
     # --------
-    # set_steering_drift: 
+    # set_steering_drift:
     #	sets the systematical steering drift parameter
     #
 
     def set_steering_drift(self, drift):
         self.steering_drift = drift
-        
+
     # --------
-    # move: 
+    # move:
     #    steering = front wheel steering angle, limited by max_steering_angle
     #    distance = total distance driven, most be non-negative
 
-    def move(self, steering, distance, 
-             tolerance = 0.001, max_steering_angle = pi / 4.0):
+    def move(self, steering, distance,
+             tolerance=0.001, max_steering_angle=pi / 4.0):
 
         if steering > max_steering_angle:
             steering = max_steering_angle
@@ -93,10 +91,9 @@ class robot:
         if distance < 0.0:
             distance = 0.0
 
-
         # make a new copy
         res = robot()
-        res.length         = self.length
+        res.length = self.length
         res.steering_noise = self.steering_noise
         res.distance_noise = self.distance_noise
         res.steering_drift = self.steering_drift
@@ -133,7 +130,8 @@ class robot:
         return res
 
     def __repr__(self):
-        return '[x=%.5f y=%.5f orient=%.5f]'  % (self.x, self.y, self.orientation)
+        return '[x=%.5f y=%.5f orient=%.5f]' % (self.x, self.y, self.orientation)
+
 
 ############## ADD / MODIFY CODE BELOW ####################
 
@@ -145,40 +143,21 @@ class robot:
 def run(param1, param2):
     myrobot = robot()
     myrobot.set(0.0, 1.0, 0.0)
-    speed = 1.0 # motion distance is equal to speed (we assume time = 1)
+    speed = 1.0  # motion distance is equal to speed (we assume time = 1)
     N = 100
-    #drift_ang = (pi * 10/180)
-    #myrobot.set_steering_drift(drift_ang)
     #
     # Enter code here
     #
-    # use matplotlib to plot the result
-    import matplotlib.pyplot as plt
-    X = [0 for i in xrange(N + 1)]
-    Y = [0 for i in xrange(N + 1)]
-    X[0] = myrobot.x
-    Y[0] = myrobot.y
+    crosstrack_error = myrobot.y
 
-    cteT1 = myrobot.y
-    for i in xrange(N):
-        cteP = cteT = myrobot.y
-        cteD = ( cteT - cteT1)/speed
-        cteT1 = cteT
-        steering = -param1 * cteP -param2 * cteD
-        myrobot = myrobot.move(steering, speed)
-        # -- for matplot
-        X[i+1] = myrobot.x
-        Y[i+1] = myrobot.y
-        plt.scatter(myrobot.x, myrobot.y)
-        plt.xlim([0, 100])
-        plt.ylim([-5, 5])
-        plt.pause(1e-7)
-        # --
-        print myrobot, steering
-    # -- for matplot
-    plt.plot(X,Y)
-    plt.axis('equal')
-    plt.show()
+    for i in range(N):
+        diff_crosstrack_error = myrobot.y - crosstrack_error
+        crosstrack_error = myrobot.y
+        steer = - param1 * crosstrack_error \
+                - param2 * diff_crosstrack_error
+        myrobot = myrobot.move(steer, speed)
+        print myrobot, steer
+
 
 # Call your function with parameters of 0.2 and 3.0 and print results
 run(0.2, 3.0)
