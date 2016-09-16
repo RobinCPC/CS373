@@ -24,7 +24,7 @@ Created on Mon Dec 29 02:26:33 2014
 #
 # Only modify code at the bottom!
 # ------------
- 
+
 from math import *
 import random
 
@@ -80,13 +80,13 @@ class robot:
 
     def set_steering_drift(self, drift):
         self.steering_drift = drift
-        
+
     # --------
     # move: 
     #    steering = front wheel steering angle, limited by max_steering_angle
     #    distance = total distance driven, most be non-negative
 
-    def move(self, steering, distance, 
+    def move(self, steering, distance,
              tolerance = 0.001, max_steering_angle = pi / 4.0):
 
         if steering > max_steering_angle:
@@ -139,7 +139,7 @@ class robot:
         return '[x=%.5f y=%.5f orient=%.5f]'  % (self.x, self.y, self.orientation)
 
 ############## ADD / MODIFY CODE BELOW ####################
-    
+
 # ------------------------------------------------------------------------
 #
 # run - does a single control run

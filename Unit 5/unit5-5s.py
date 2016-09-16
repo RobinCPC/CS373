@@ -84,3 +84,4 @@ for i in range(len(newpath)):
 
 plt.plot(y_o, x_o)
 plt.plot(y,x)
+plt.show()
