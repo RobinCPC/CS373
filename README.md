@@ -10,4 +10,5 @@ Currently, only finish:
 * Unit3: Particle filter
 * Unit4: Motion planning
 * Unit5: PID Control
+* Unit6: SLAM (working)
 
