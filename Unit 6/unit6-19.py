@@ -380,14 +380,15 @@ def doit(initial_pos, move1, move2, Z0, Z1, Z2):
                   [Z1]])
 
     # add measurement Z2
+    # unit 6-21 confident Measurement
     Omega += matrix([[ 0.,  0.,  0.,  0.],
                      [ 0.,  0.,  0.,  0.],
-                     [ 0.,  0.,  1., -1.],
-                     [ 0.,  0., -1.,  1.]])
+                     [ 0.,  0.,  5., -5.],
+                     [ 0.,  0., -5.,  5.]])
     Xi += matrix([[0.],
                   [0.],
-                  [-Z2],
-                  [Z2]])
+                  [-Z2 * 5],
+                  [ Z2 * 5]])
 
 
     Omega.show('Omega: ')
@@ -397,6 +398,9 @@ def doit(initial_pos, move1, move2, Z0, Z1, Z2):
 
     return mu
 
-doit(-3, 5, 3, 10, 5, 2)
+#doit(-3, 5, 3, 10, 5, 2)
 
+# unit 6-20 introducing noise (testing)
+res = doit(-3, 5, 3, 10, 5, 1)
+res.show()
 
